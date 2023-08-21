@@ -21,3 +21,9 @@ button {
   border-color: brown;
   background-color: bisque;
 }
+
+table,
+th,
+td {
+  border: 1px solid;
+}
