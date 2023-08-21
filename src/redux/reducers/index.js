@@ -13,7 +13,7 @@ export const formSlice = createSlice({
       return state;
     },
     setValues: (state, action) => {
-      return (state = action.payload);
+      return { ...state, ...action.payload };
     },
   },
 });
