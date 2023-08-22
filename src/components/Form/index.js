@@ -1,7 +1,7 @@
 import { useState } from "react";
-import validator from "validator";
 import { useDispatch } from "react-redux";
 import { setValues } from "../../redux/reducers";
+import { validateFormValues } from "./utils";
 
 export const Form = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,13 +13,7 @@ export const Form = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const isValid = [];
-    isValid.push(!validator.isEmpty(firstName));
-    isValid.push(!validator.isEmpty(lastName));
-    isValid.push(!validator.isEmpty(email));
-    isValid.push(!validator.isEmpty(message));
-    isValid.push(validator.isEmail(email));
-    isValid.push(validator.isLength(message, { max: 10 }));
+    const isValid = validateFormValues({ firstName, lastName, email, message });
     if (isValid.includes(false)) {
       alert("Fill in correct data");
     } else {
@@ -36,19 +30,29 @@ export const Form = () => {
     fn(e.target.value);
   };
   return (
-    <div className="container">
+    <div className="container" role="form">
       <form>
         <input
+          role="firstName"
           value={firstName}
           onChange={(e) => handleChange(e, setFirstName)}
         />
         <input
+          role="lastName"
           value={lastName}
           onChange={(e) => handleChange(e, setLastName)}
         />
-        <input value={email} onChange={(e) => handleChange(e, setEmail)} />
-        <input value={message} onChange={(e) => handleChange(e, setMessage)} />
-        <button type="submit" onClick={onSubmit}>
+        <input
+          role="email"
+          value={email}
+          onChange={(e) => handleChange(e, setEmail)}
+        />
+        <input
+          role="message"
+          value={message}
+          onChange={(e) => handleChange(e, setMessage)}
+        />
+        <button role="submitButton" type="submit" onClick={onSubmit}>
           Submit form
         </button>
       </form>
